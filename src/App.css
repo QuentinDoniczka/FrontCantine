@@ -1,0 +1,87 @@
+:root {
+  --primary-color: #F9812C;
+  --secondary-color: #F5F5DC;
+  --optional-color: #FFC14F;
+  --header-height: 80px;
+  --footer-height: 80px;
+  --main-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+@font-face {
+  font-family: 'Jost-Regular';
+  src: url('./assets/fonts/Jost-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Jost-Medium';
+  src: url('./assets/fonts/Jost-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Jost-SemiBold';
+  src: url('./assets/fonts/Jost-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  font-family: 'Jost-Regular', sans-serif;
+  font-size: 26px;
+  text-align: center;
+}
+
+header {
+  background-color: var(--secondary-color);
+  height: var(--header-height);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  &:hover {
+    transform: scale(1.10);
+    color: var(--primary-color);
+  }
+}
+
+footer {
+  background-color: var(--primary-color);
+  height: var(--footer-height);
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  min-height: var(--main-height);
+}
+input{
+  background-color: var(--primary-color);
+  box-shadow: inset 0px 0px 8px 4px rgba(0, 0, 0, 0.3);
+  height: 50px;
+  width: 300px;
+  border: solid 1px black;
+    border-radius: 5px;
+}
+label{
+  font-size: 18px;
+  font-weight: 600;
+}

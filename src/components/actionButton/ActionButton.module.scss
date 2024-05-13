@@ -1,0 +1,31 @@
+.actionbutton {
+  border-radius: 25px;
+  border: solid 2px;
+  background-color: var(--secondary-color);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.30);
+
+  &:hover {
+    transform: scale(1.10);
+  }
+}
+.button-theme-1 {
+  background-color: var(--primary-color);
+  border:none;
+  color: var(--secondary-color);
+  &:hover {
+    border: black solid 2px;
+  }
+}
+
+.button-theme-2 {
+  font-size: 22px;
+}
+.button-theme-3{
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  font-weight: 500;
+}
+.button-theme-4{
+  border-radius: 5px;
+  font-weight: 500;
+}

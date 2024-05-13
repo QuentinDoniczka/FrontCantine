@@ -1,0 +1,14 @@
+.footernav {
+
+  a {
+    color: var(--secondary-color);
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+  div{
+    display : flex;
+    align-items: center;
+    justify-content:space-around;
+  }
+}
