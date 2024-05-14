@@ -27,7 +27,7 @@ const Header: React.FC = () => {
                   <a href="/admin" className="navbar-link">Admin</a>
               </div>
               <div className={`${styles.headerpagesnav} col-4`}>
-                  <a href="/calendar" className="navbar-link">Week of Monday 25-12 </a>
+                  <p> Week of Monday 25-12 </p>
               </div>
               <div className={`${styles.lastdiv} col-4`}>
                   <ActionButton text={"Register"}

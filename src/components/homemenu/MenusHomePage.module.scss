@@ -1,0 +1,25 @@
+.card_group{
+  flex:1;
+  display: flex;
+  justify-content:space-around;
+    align-items: center;
+}
+.cards{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.single_button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.card{
+  display: flex;
+  justify-content: center;
+}
