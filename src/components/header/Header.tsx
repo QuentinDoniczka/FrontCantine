@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Header.module.scss";
 import img from "../../assets/img/logo.png";
 import ActionButton from "../actionButton/ActionButton.tsx";
@@ -9,6 +9,23 @@ import Register from "../register/Register.tsx";
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState<'login' | 'register'>('login');
+    const [currentDate, setCurrentDate] = useState<string>("");
+
+    useEffect(() => {
+        const today = new Date();
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const monthsOfYear = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        const day = today.getDate();
+        const month = monthsOfYear[today.getMonth()];
+        const year = today.getFullYear();
+
+        setCurrentDate(`${dayOfWeek} ${day} ${month} ${year}`);
+    }, []);
 
     const openModal = (content: 'login' | 'register') => {
         setModalContent(content);
@@ -27,7 +44,7 @@ const Header: React.FC = () => {
                   <a href="/admin" className="navbar-link">Admin</a>
               </div>
               <div className={`${styles.headerpagesnav} col-4`}>
-                  <p> Week of Monday 25-12 </p>
+                  <p>{currentDate} </p>
               </div>
               <div className={`${styles.lastdiv} col-4`}>
                   <ActionButton text={"Register"}

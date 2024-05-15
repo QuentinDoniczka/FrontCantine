@@ -8,7 +8,6 @@ const FullOverlay: React.FC<FullOverlayProps> = ({ height1, height2, height3 }) 
 
     // Calculate the 'top' position for each OverlayBackground based on the provided heights
     const top1 = "0px"; // First element always starts at the top
-    console.log(height1);
     const top2 = height1 || "0px"; // Defaults to "0px" if height1 is not provided
     const top3 = height2 ? `calc(${height1} + ${height2})` : "0px"; // height2 is added to height1
     const color1 = "var(--secondary-color)";

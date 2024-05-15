@@ -1,22 +1,42 @@
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: deepskyblue;
+  background-color: var(--secondary-color);
   height: 300px;
   min-width: 250px;
   max-width: 250px;
   border-radius: 15px;
   box-shadow: 4px 4px 8px 4px rgba(0, 0, 255, 0.25);
+  padding: 10px;
 }
 
-.card_content {
-  height: 280px;
-  width: 240px;
+.card_img {
+  height: 50%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card_text {
+  font-size: 16px;
+  text-align: center; /* Centrer le texte dans la carte */
+}
+
+.card_button {
+  margin-left: auto; /* Place le bouton à droite */
+}
+
+.row {
   display: flex;
-  justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.card_prix {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .img {
@@ -37,4 +57,7 @@
     height: 150px;
     width: 210px;
   }
+}
+p{
+  margin: 0px;
 }

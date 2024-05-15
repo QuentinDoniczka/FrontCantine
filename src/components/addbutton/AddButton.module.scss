@@ -1,0 +1,27 @@
+.button {
+  position: relative;
+  background-color: var(--primary-color);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  span {
+    position: absolute;
+    bottom: -15%;
+  }
+}
+.button:hover {
+  transform: scale(1.1);
+  border: 1px solid black;
+  span {
+    position: absolute;
+    bottom: -18%;
+  }
+}
