@@ -1,11 +1,14 @@
 import styles from "./Card.module.scss";
-const Card = () => {
+import img from "../../assets/img/no_image.jpg";
 
+const Card = () => {
     return (
         <div className={styles.card}>
-            <img></img>
+            <div className={styles.card_content}>
+                <img className={styles.img} src={img} alt="card" />
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default Card
+export default Card;

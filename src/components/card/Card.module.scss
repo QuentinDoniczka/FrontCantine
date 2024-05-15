@@ -1,9 +1,40 @@
-.card{
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: deepskyblue;
   height: 300px;
   min-width: 250px;
   max-width: 250px;
-
   border-radius: 15px;
   box-shadow: 4px 4px 8px 4px rgba(0, 0, 255, 0.25);
+}
+
+.card_content {
+  height: 280px;
+  width: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 1600px) {
+  .card {
+    background-color: red;
+    height: 270px;
+    min-width: 225px;
+    max-width: 225px;
+  }
+  .card_content {
+    height: 150px;
+    width: 210px;
+  }
 }
