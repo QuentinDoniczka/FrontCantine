@@ -1,22 +1,29 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { roleHierarchy } from '../utils/constants.ts';
 
 type Props = {
-  children: React.ReactNode;
+	children: React.ReactNode;
+	requiredRole: 'Client' | 'Manager' | 'Admin' | 'SuperAdmin';
 };
 
-const Protected = ({ children }: Props): React.ReactElement | null => {
-  const user = true; // TODO replace with real user
-  const authChecked = true; // TODO replace with real auth check
+const Protected: React.FC<Props> = ({ children, requiredRole }) => {
+	const { isAuthenticated, userRole } = useAuth();
 
-  if (!authChecked) {
-    return null; // or <Loading />
-  }
+	const isRoleSufficient = (
+		userRole: string | null,
+		requiredRole: string
+	): boolean => {
+		if (!userRole) return false;
+		return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
+	};
 
-  if (!user) {
-    return <Navigate to="/" />;
-  }
-  return <>{children}</>;
+	if (!isAuthenticated || !isRoleSufficient(userRole, requiredRole)) {
+		return <Navigate to="/" replace />;
+	}
+
+	return <>{children}</>;
 };
 
 export default Protected;

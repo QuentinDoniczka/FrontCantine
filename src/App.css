@@ -79,7 +79,8 @@ input{
   height: 50px;
   width: 300px;
   border: solid 1px black;
-    border-radius: 5px;
+  border-radius: 5px;
+  padding-left: 10px;
 }
 label{
   font-size: 18px;
