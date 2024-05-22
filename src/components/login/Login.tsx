@@ -31,7 +31,6 @@ const Login: React.FC<LoginProps> = ({ onSwitchModal, onClose }) => {
 			localStorage.setItem('tokenExpiration', data.expiration);
 			localStorage.setItem('mail', data.mail);
 
-			// Mettre à jour le store Redux avec le rôle de l'utilisateur
 			dispatch(
 				setAuthState({
 					isAuthenticated: true,

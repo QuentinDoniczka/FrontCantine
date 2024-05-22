@@ -12,20 +12,43 @@
 }
 
 .modalContent {
-  background: white;
   padding: 20px;
-  border-radius: 4px;
-  max-width: 500px;
-  width: 100%;
+  border-radius: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #F5F5DC;
+  display : flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-
-  label {
+  .group_input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .input_file{
+    background-color: #F5F5DC;
+    border: none;
+    box-shadow: none;
+    height: auto;
+    padding: 1px;
+  }
+  .ingredient{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-bottom: 10px;
+  }
+  .button_add{
+  margin: 10px 0;
+  }
+  .group_input_ingredient {
+
+  }
+  label {
 
     input {
       margin-left: 10px;
@@ -33,6 +56,6 @@
   }
 
   button {
-    align-self: flex-end;
+    align-self: flex-start;
   }
 }

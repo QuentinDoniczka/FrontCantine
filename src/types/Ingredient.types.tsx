@@ -1,5 +1,5 @@
 export interface Ingredient {
-	id: number;
+	ingredientId: string;
 	ingredientName: string;
 	ingredientAllergen: string | null;
 }

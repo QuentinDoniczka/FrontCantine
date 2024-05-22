@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import styles from './ProductForm.module.scss';
-import { Ingredient } from '../../types/Ingredient.types.tsx';
-import { getIngredients } from '../../api/Ingredient.ts';
+import { Ingredient } from '../../types/Ingredient.types';
+import { getIngredients } from '../../api/Ingredient';
+import { postProduct } from '../../api/product.ts';
+import { ProductData } from '../../types/Product.types.ts';
+import ActionButton from '../actionButton/ActionButton.tsx';
+import { resizeAndFormatImage } from '../../utils/sizeUtils.ts';
 
 type ModalProps = {
 	isOpen: boolean;
@@ -16,7 +20,6 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
-	const [imageFile, setImageFile] = useState<File | null>(null);
 
 	useEffect(() => {
 		const fetchIngredients = async () => {
@@ -35,30 +38,32 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const formData = new FormData(event.target as HTMLFormElement);
-		const formJson = Object.fromEntries(formData.entries());
 
-		if (imageFile) {
-			try {
-				// TODO: Envoyer l'image au service Azure
-				const azureUploadResponse = await uploadImageToAzure(imageFile);
-				const imageUrl = azureUploadResponse.url;
-
-				// TODO: Envoyer l'URL de l'image à votre backend
-				const backendResponse = await sendImageUrlToBackend(
-					imageUrl,
-					formJson
-				);
-
-				console.log(JSON.stringify(formJson, null, 2));
-				console.log('Image URL sent to backend:', imageUrl);
-			} catch (error) {
-				console.error(
-					'Error uploading image or sending URL to backend:',
-					error
-				);
+		let productImage = formData.get('productImage') as File;
+		if (productImage) {
+			const resizedBlob = await resizeAndFormatImage(productImage);
+			if (resizedBlob) {
+				productImage = new File([resizedBlob], productImage.name, {
+					type: 'image/bmp',
+				});
 			}
-		} else {
-			console.log('No image file selected');
+		}
+
+		const productData: ProductData = {
+			productName: formData.get('productName') as string,
+			productType: formData.get('productType') as string,
+			productDescription: formData.get('productDescription') as string,
+			ingredientIds: selectedIngredients,
+			productImage,
+		};
+
+		console.log('Product data:', productData);
+		try {
+			await postProduct(productData);
+			console.log('Product created successfully');
+			onRequestClose();
+		} catch (error) {
+			console.error('Error creating product:', error);
 		}
 	};
 
@@ -78,11 +83,6 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 		setSelectedIngredients(updatedIngredients);
 	};
 
-	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		setImageFile(file || null);
-	};
-
 	return (
 		<ReactModal
 			isOpen={isOpen}
@@ -92,34 +92,45 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 		>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<h2>Add a new Product</h2>
-				<div>
-					<label>Name</label>
-					<input type="text" name="productName" />
-				</div>
-				<div>
-					<label>Type</label>
+				<div className={styles.group_input}>
+					<label>Type :</label>
 					<select name="productType">
-						// "starter", "main", "dessert", "drink"
+						<option value="">Select a type</option>
 						<option value="starter">starter</option>
 						<option value="main">main</option>
 						<option value="dessert">dessert</option>
 						<option value="drink">drink</option>
 					</select>
 				</div>
-				<div>
-					<label>Description</label>
+				<div className={styles.group_input}>
+					<label>Name :</label>
+					<input type="text" name="productName" />
+				</div>
+				<div className={styles.group_input}>
+					<label>Description :</label>
 					<input type="text" name="productDescription" />
 				</div>
-				<div>
-					<label>Image</label>
+				<div className={styles.group_input}>
+					<label>Image :</label>
 					<input
 						type="file"
 						name="productImage"
-						onChange={handleImageChange}
+						className={styles.input_file}
 					/>
 				</div>
-				<div>
+				<div className={styles.group_input_ingredient}>
 					<label>Ingredients</label>
+					<div className={styles.button_add}>
+						<ActionButton
+							text={'Add'}
+							theme={3}
+							height={'30px'}
+							width={'100px'}
+							font_size={16}
+							shadow={false}
+							onClick={addIngredientField}
+						/>
+					</div>
 					{selectedIngredients.map((ingredient, index) => (
 						<div key={index}>
 							{loading ? (
@@ -127,7 +138,7 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 							) : error ? (
 								<p>{error}</p>
 							) : (
-								<div>
+								<div className={styles.ingredient}>
 									<select
 										name={`ingredientId${index}`}
 										value={ingredient}
@@ -145,30 +156,40 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 											(ingredient, index) => (
 												<option
 													key={index}
-													value={ingredient.id}
+													value={
+														ingredient.ingredientId
+													}
 												>
 													{ingredient.ingredientName}
 												</option>
 											)
 										)}
 									</select>
-									<button
-										type="button"
+									<ActionButton
+										text={'Remove'}
+										theme={4}
+										height={'35px'}
+										width={'100px'}
+										font_size={18}
+										shadow={false}
 										onClick={() =>
 											removeIngredientField(index)
 										}
-									>
-										Remove
-									</button>
+									/>
 								</div>
 							)}
 						</div>
 					))}
-					<button type="button" onClick={addIngredientField}>
-						Add Ingredient
-					</button>
 				</div>
-				<button type="submit">Add</button>
+				<ActionButton
+					text={'Create'}
+					theme={3}
+					height={'30px'}
+					width={'100%'}
+					font_size={16}
+					shadow={false}
+					type="submit"
+				/>
 			</form>
 		</ReactModal>
 	);
