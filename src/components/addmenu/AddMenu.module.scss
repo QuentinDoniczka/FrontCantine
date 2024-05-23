@@ -1,0 +1,30 @@
+.button{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #F9812C;
+  border: none;
+  p{
+    font-size: 80px;
+    color: white;
+    position: absolute;
+    top: -34%;
+    left: 19%;
+  }
+}
+.button:hover{
+  transform: scale(1.1);
+  border: 1px solid black;
+  p{
+    top: -35%;
+    left: 18%;
+  }
+}
+
+.card{
+  height: 300px;
+  width: 250px;
+  background-color: #F9812C;
+  margin : 20px;
+}

@@ -1,0 +1,36 @@
+.background_calendar{
+  z-index: 1005;
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  height:370px;
+  width: 340px;
+  border-radius: 25px;
+  border : 2px solid;
+  border-collapse: collapse;
+  background-color: var(--primary-color-transparent);
+  display: flex;
+    justify-content: center;
+  .calendar{
+    background-color: var(--secondary-color);
+    height:260px;
+    width: 300px;
+    border-radius: 25px;
+    margin-top: 20px;
+    border: 1px solid;
+  }
+  .table{
+    height: 100%;
+    width: 100%;
+  }
+  .day{
+
+  }
+  .not_in_month{
+    color: red;
+  }
+  .selected{
+    color: var(--primary-color);
+    scale: 1.2;
+  }
+}

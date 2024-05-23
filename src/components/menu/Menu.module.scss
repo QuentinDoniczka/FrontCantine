@@ -18,6 +18,9 @@
 .menu_container {
   z-index: 2;
   position: relative;
-  height: 300px;
+  height: 340px;
   background-color: #F5F5DC;
+  display: flex;
+    align-items: center;
+    justify-content: center;
 }

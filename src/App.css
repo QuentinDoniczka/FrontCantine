@@ -2,6 +2,7 @@
   --primary-color: #F9812C;
   --secondary-color: #F5F5DC;
   --optional-color: #FFC14F;
+  --primary-color-transparent: rgba(249, 129, 44, 0.6);
   --header-height: 80px;
   --footer-height: 80px;
   --main-height: calc(100vh - var(--header-height) - var(--footer-height));

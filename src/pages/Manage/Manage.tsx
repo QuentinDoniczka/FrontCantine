@@ -4,6 +4,7 @@ import img from '../../assets/img/test.png';
 import Menu from '../../components/menu/Menu';
 import ActionButton from '../../components/actionButton/ActionButton';
 import ProductForm from '../../components/productform/ProductForm.tsx';
+import Calendar from '../../components/calendar/Calendar.tsx';
 
 const Manage: React.FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +37,7 @@ const Manage: React.FC = () => {
 					/>
 				</div>
 			</div>
+			<Calendar />
 			<Menu title="starter" count={1} />
 			<Menu title="main" count={2} />
 			<Menu title="dessert" count={1} />
