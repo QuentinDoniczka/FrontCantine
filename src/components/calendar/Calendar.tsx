@@ -30,15 +30,18 @@ const Calendar = () => {
 					day += 2;
 				}
 
-				let className = styles.day;
+				let className = '';
 				let dayNumber: number | null = null;
+				let clickable = false;
 
 				if (row === 0 && col < firstDayIndex - 1) {
 					className = styles.not_in_month;
 					dayNumber = prevMonthDay;
 					prevMonthDay++;
 				} else if (day <= daysInMonth) {
+					className = styles.day;
 					dayNumber = day;
+					clickable = true;
 					if (dayNumber === selectedDay) {
 						className = `${styles.day} ${styles.selected}`;
 					}
@@ -54,7 +57,11 @@ const Calendar = () => {
 					<td
 						key={`${row}-${col}`}
 						className={className}
-						onClick={() => dayNumber && handleDayClick(dayNumber)}
+						onClick={
+							clickable
+								? () => handleDayClick(dayNumber!)
+								: undefined
+						}
 					>
 						{dayNumber}
 					</td>
