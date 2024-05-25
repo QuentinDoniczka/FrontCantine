@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-radius: 15px;
   background-color: var(--secondary-color);
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 255, 0.25);
   height: 300px;
   min-width: 250px;
   max-width: 250px;
-  border-radius: 15px;
-  box-shadow: 4px 4px 8px 4px rgba(0, 0, 255, 0.25);
   padding: 10px;
 }
 

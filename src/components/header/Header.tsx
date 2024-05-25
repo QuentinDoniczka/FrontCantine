@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 import img from '../../assets/img/logo.png';
-import ActionButton from '../actionButton/ActionButton.tsx';
+import ActionButton from '../actionbutton/ActionButton.tsx';
 import ReactModal from 'react-modal';
 import Login from '../login/Login.tsx';
 import Register from '../register/Register.tsx';

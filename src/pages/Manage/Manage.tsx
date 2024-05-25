@@ -2,13 +2,24 @@ import React, { useState } from 'react';
 import styles from './Manage.module.scss';
 import img from '../../assets/img/test.png';
 import Menu from '../../components/menu/Menu';
-import ActionButton from '../../components/actionButton/ActionButton';
+import ActionButton from '../../components/actionbutton/ActionButton';
 import ProductForm from '../../components/productform/ProductForm.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
 
 const Manage: React.FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
+	const [selectedDate, setSelectedDate] = useState<{
+		day: number;
+		month: number;
+		year: number;
+	}>(() => {
+		const today = new Date();
+		return {
+			day: today.getDate(),
+			month: today.getMonth(),
+			year: today.getFullYear(),
+		};
+	});
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
@@ -16,7 +27,14 @@ const Manage: React.FC = () => {
 	const closeModal = () => {
 		setIsModalOpen(false);
 	};
-
+	const handleDateChange = (date: {
+		day: number;
+		month: number;
+		year: number;
+	}) => {
+		setSelectedDate(date);
+		console.log('Date sélectionnée :', selectedDate);
+	};
 	return (
 		<div className={styles.manage}>
 			<div className={styles.imageContainer}>
@@ -37,7 +55,10 @@ const Manage: React.FC = () => {
 					/>
 				</div>
 			</div>
-			<Calendar />
+			<Calendar
+				selectedDate={selectedDate}
+				onDateChange={handleDateChange}
+			/>
 			<Menu title="starter" count={1} />
 			<Menu title="main" count={2} />
 			<Menu title="dessert" count={1} />

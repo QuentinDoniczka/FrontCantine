@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
-import ActionButton from '../actionButton/ActionButton.tsx';
+import ActionButton from '../actionbutton/ActionButton.tsx';
 import { login } from '../../api/auth.ts';
 import Cookies from 'js-cookie';
 import { setAuthState } from '../../store/slices/authSlice.ts';

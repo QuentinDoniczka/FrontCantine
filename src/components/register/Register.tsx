@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Register.module.scss';
-import ActionButton from '../actionButton/ActionButton.tsx';
+import ActionButton from '../actionbutton/ActionButton.tsx';
 import { register } from '../../api/auth';
 import { validatePassword, getErrorMessage } from '../../utils/utils.ts';
 

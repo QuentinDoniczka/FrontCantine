@@ -21,6 +21,7 @@ export const monthsOfYear = [
 	'September',
 	'October',
 	'November',
+	'December',
 ];
 export const roleHierarchy: Record<string, number> = {
 	Client: 1,

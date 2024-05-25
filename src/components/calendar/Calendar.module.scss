@@ -18,19 +18,68 @@
     border-radius: 25px;
     margin-top: 20px;
     border: 1px solid;
+    font-weight: 700;
+    font-size: 18px;
   }
   .table{
-    height: 100%;
+    height: 70%;
     width: 100%;
+
+  }
+  .date{
+    height: 15%;
+    font-size: 24px;
+  }
+  .calendar_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 15%;
+    position: relative;
+    font-size: 24px;
+    img {
+      width: 26px;
+      height: 26px;
+      margin: 0 15px;
+    }
+    img:hover {
+      cursor: pointer;
+        transform: scale(1.3);
+    }
+  }
+
+  .calendar_head::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    border-bottom: 1px solid black;
   }
   .day{
 
   }
   .not_in_month{
-    color: red;
+    color: #7B7B6E;
   }
   .selected{
     color: var(--primary-color);
     scale: 1.2;
+  }
+  .button_container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    .button{
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      font-weight: 500;
+      color: var(--secondary-color);
+      border: none;
+      padding: 5px 10px;
+      &:hover{
+        border: black solid 2px;
+      }
+    }
   }
 }

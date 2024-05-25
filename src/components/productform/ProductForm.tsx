@@ -5,7 +5,7 @@ import { Ingredient } from '../../types/Ingredient.types';
 import { getIngredients } from '../../api/Ingredient';
 import { postProduct } from '../../api/product.ts';
 import { ProductData } from '../../types/Product.types.ts';
-import ActionButton from '../actionButton/ActionButton.tsx';
+import ActionButton from '../actionbutton/ActionButton.tsx';
 import { resizeAndFormatImage } from '../../utils/sizeUtils.ts';
 
 type ModalProps = {
@@ -20,6 +20,7 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [ingredientError, setIngredientError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchIngredients = async () => {
@@ -37,6 +38,14 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+
+		if (selectedIngredients.length === 0) {
+			setIngredientError('You must select at least one ingredient.');
+			return;
+		}
+
+		setIngredientError(null);
+
 		const formData = new FormData(event.target as HTMLFormElement);
 
 		let productImage = formData.get('productImage') as File;
@@ -120,6 +129,9 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 				</div>
 				<div className={styles.group_input_ingredient}>
 					<label>Ingredients</label>
+					{ingredientError && (
+						<p className={styles.error}>{ingredientError}</p>
+					)}
 					<div className={styles.button_add}>
 						<ActionButton
 							text={'Add'}

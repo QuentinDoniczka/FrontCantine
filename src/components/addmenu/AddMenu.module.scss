@@ -25,6 +25,59 @@
 .card{
   height: 300px;
   width: 250px;
-  background-color: #F9812C;
   margin : 20px;
+  padding : 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background-color: var(--secondary-color);
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 255, 0.25);
+
+  .button_group{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    input{
+      width: 100px;
+      height: 30px;
+      font-size: 18px;
+      text-align: center;
+      padding: 0;
+    }
+      input::placeholder{
+            color: black;
+        }
+  }
+  .input_container {
+    position: relative;
+    display: inline-block;
+
+    input[type='number'] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+      margin: 0;
+      padding: 0 20px;
+    }
+
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    span {
+      position: absolute;
+      right: 5px;
+      top: 57%;
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+  }
+}
+.icon{
+  height: 24px;
+  width: 24px;
 }
