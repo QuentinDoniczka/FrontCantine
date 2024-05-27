@@ -1,45 +1,32 @@
 import React, { useState } from 'react';
 import styles from './Menu.module.scss';
 import AddMenu from '../addmenu/AddMenu.tsx';
-
+import { ProductData } from '../../types/Product.types.ts';
 type MenuProps = {
 	title: string;
-	count: number;
+	products: ProductData[];
 };
 
-const Menu: React.FC<MenuProps> = ({ title, count }) => {
-	const [menuItems, setMenuItems] = useState(
-		Array.from({ length: count }, () => [{ id: 0, state: 'button' }])
-	);
+const Menu: React.FC<MenuProps> = ({ title, products }) => {
+	const [menuItems, setMenuItems] = useState([{ id: 0, state: 'button' }]);
 
-	const handleAddMenu = (index: number) => {
+	const handleAddMenu = () => {
 		setMenuItems(prevItems => {
-			const newItems = [...prevItems];
-			if (newItems[index].length < 3) {
-				newItems[index] = [
-					...newItems[index],
-					{ id: Date.now(), state: 'button' },
-				];
+			if (prevItems.length < 3) {
+				return [...prevItems, { id: Date.now(), state: 'button' }];
 			}
-			return newItems;
+			return prevItems;
 		});
 	};
 
-	const handleRemoveMenu = (sectionIndex: number, itemIndex: number) => {
+	const handleRemoveMenu = (itemIndex: number) => {
 		setMenuItems(prevItems => {
-			const newItems = [...prevItems];
-			newItems[sectionIndex] = newItems[sectionIndex].filter(
+			const newItems = prevItems.filter(
 				(_, index) => index !== itemIndex
 			);
 
-			const buttonCount = newItems[sectionIndex].filter(
-				item => item.state === 'button'
-			).length;
-			if (buttonCount === 0) {
-				newItems[sectionIndex] = [
-					...newItems[sectionIndex],
-					{ id: Date.now(), state: 'button' },
-				];
+			if (newItems.length === 0) {
+				return [{ id: Date.now(), state: 'button' }];
 			}
 
 			return newItems;
@@ -47,13 +34,22 @@ const Menu: React.FC<MenuProps> = ({ title, count }) => {
 	};
 
 	const handleStateChange = (
-		sectionIndex: number,
 		itemIndex: number,
 		state: 'button' | 'form' | 'validated'
 	) => {
 		setMenuItems(prevItems => {
 			const newItems = [...prevItems];
-			newItems[sectionIndex][itemIndex].state = state;
+			const isLastItem = itemIndex === newItems.length - 1;
+
+			const validatedCount = newItems.filter(
+				item => item.state === 'validated'
+			).length;
+
+			if (state === 'validated' && validatedCount === 0 && isLastItem) {
+				newItems.push({ id: Date.now(), state: 'button' });
+			}
+
+			newItems[itemIndex].state = state;
 			return newItems;
 		});
 	};
@@ -63,28 +59,24 @@ const Menu: React.FC<MenuProps> = ({ title, count }) => {
 			<div className={styles.title}>
 				<h2>{title}</h2>
 			</div>
-			{menuItems.map((section, sectionIndex) => (
-				<div key={sectionIndex} className={styles.menu_container}>
-					{section.map((item, itemIndex) => (
+			<div className={styles.menu_container}>
+				{menuItems.map((item, itemIndex) => {
+					return (
 						<AddMenu
 							key={item.id}
-							onAdd={() => handleAddMenu(sectionIndex)}
+							onAdd={handleAddMenu}
 							onUpdate={() => {}}
-							onRemove={() =>
-								handleRemoveMenu(sectionIndex, itemIndex)
-							}
-							hasMultiple={section.length > 1}
+							onRemove={() => handleRemoveMenu(itemIndex)}
+							hasMultiple={menuItems.length > 1}
 							onStateChange={state =>
-								handleStateChange(
-									sectionIndex,
-									itemIndex,
-									state
-								)
+								handleStateChange(itemIndex, state)
 							}
+							title={title}
+							product={products}
 						/>
-					))}
-				</div>
-			))}
+					);
+				})}
+			</div>
 		</div>
 	);
 };

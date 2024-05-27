@@ -7,6 +7,10 @@
   &:hover {
     transform: scale(1.10);
   }
+  &.active {
+    background-color: var(--primary-color);
+    transform: scale(1.10);
+  }
 }
 .button-theme-1 {
   background-color: var(--primary-color);
@@ -31,6 +35,14 @@
 }
 .button-theme-5 {
   background-color: var(--primary-color);
+  border:none;
+  color: black;
+  &:hover {
+    border: black solid 2px;
+  }
+}
+.button-theme-6 {
+  background-color: #ff0707;
   border:none;
   color: black;
   &:hover {

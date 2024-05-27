@@ -4,7 +4,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home/Home';
-import Manage from './pages/Manage/Manage';
+import Manage from './pages/manage/Manage';
 import Protected from './authorization/Protected';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';

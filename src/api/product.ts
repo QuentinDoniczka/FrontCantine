@@ -1,5 +1,20 @@
 import axiosInstance from './axiosConfig';
-import { ProductData } from '../types/Product.types.ts';
+import { ProductData, ProductDataResponse } from '../types/Product.types.ts';
+
+export const getProducts = async (
+	filter: string,
+	productType: string
+): Promise<ProductDataResponse[]> => {
+	try {
+		const response = await axiosInstance.get('/product', {
+			params: { filter, productType },
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching products:', error);
+		throw error;
+	}
+};
 
 export const postProduct = async (productData: ProductData) => {
 	try {

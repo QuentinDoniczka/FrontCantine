@@ -4,6 +4,8 @@ import LeftArrow from '../../assets/icons/left.svg';
 import RightArrow from '../../assets/icons/right.svg';
 import { monthsOfYear } from '../../utils/constants.ts';
 import ActionButton from '../actionbutton/ActionButton.tsx';
+import { createMenu, deleteMenuByDate } from '../../api/menus.ts';
+import { MenuDto, MenuPost } from '../../types/Menu.types.ts';
 
 interface CalendarProps {
 	selectedDate: { day: number; month: number; year: number };
@@ -14,18 +16,44 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 	const [month, setMonth] = useState(selectedDate.month - 1);
 	const [year, setYear] = useState(selectedDate.year);
 	const [selectedDay, setSelectedDay] = useState(selectedDate.day);
+	const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
+	const [deleteDate, setDeleteDate] = useState('');
 
+	const showDeleteConfirm = (date: string) => {
+		setDeleteDate(date);
+		setIsDeleteConfirmVisible(true);
+	};
+	const handleDeleteMenu = async () => {
+		const formattedDate = new Date(year, month, selectedDay + 1)
+			.toISOString()
+			.split('T')[0];
+		showDeleteConfirm(formattedDate);
+	};
+
+	const confirmDeleteMenu = async () => {
+		try {
+			await deleteMenuByDate(deleteDate);
+			alert(`Menu for date ${deleteDate} deleted successfully`);
+			hideDeleteConfirm();
+		} catch (error) {
+			alert(`Error deleting menu for date ${deleteDate} no menu found`);
+			console.error('Error deleting menu:', error);
+			hideDeleteConfirm();
+		}
+	};
+	const hideDeleteConfirm = () => {
+		setIsDeleteConfirmVisible(false);
+		setDeleteDate('');
+	};
 	useEffect(() => {
 		onDateChange({ day: selectedDay, month: month + 1, year: year });
 	}, [selectedDay, month, year]);
 
 	const handleDayClick = (day: number) => {
 		setSelectedDay(day);
-		console.log(`day selected : ${day}`);
 	};
 	const findFirstAvailableDay = (month: number, year: number) => {
 		const firstdayIndex = new Date(year, month, 1).getDay();
-		console.log(firstdayIndex);
 		switch (firstdayIndex) {
 			case 6:
 				return 3;
@@ -64,7 +92,34 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 			return newMonth;
 		});
 	};
+	const handleCreateMenu = async () => {
+		try {
+			const formattedDate = new Date(year, month, selectedDay + 1)
+				.toISOString()
+				.split('T')[0];
+			const storedMenu = localStorage.getItem(formattedDate);
+			if (storedMenu) {
+				const menuData: MenuDto = JSON.parse(storedMenu);
+				console.log('Stored menu:', menuData);
 
+				const menuPost: MenuPost = {
+					menuDate: menuData.menuDate,
+					menuProducts: menuData.menuProducts.map(item => ({
+						menuProductPrice: item.menuProduct.menuProductPrice,
+						productId: item.menuProduct.productId,
+					})),
+				};
+				const response = await createMenu(menuPost);
+				console.log('Menu created:', response);
+			} else {
+				console.log(
+					'No menu data found in Local Storage for the selected date.'
+				);
+			}
+		} catch (error) {
+			console.error('Error creating menu:', error);
+		}
+	};
 	const generateCalendarNumbers = (month: number, year: number) => {
 		const tabCalendar = generateTableCalendar(month, year);
 		let CountFirstDayIndex = new Date(year, month, 1).getDay();
@@ -127,16 +182,15 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 		firstDayIndex = firstDayIndex == 0 ? 7 : firstDayIndex;
 		const prevMonthDays = new Date(year, month, 0).getDate();
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
-		console.log(firstDayIndex, prevMonthDays, daysInMonth);
 
-		let dayCounter = prevMonthDays - (firstDayIndex - 1);
+		let dayCounter = prevMonthDays - (firstDayIndex - 2);
 		let nextmMouthCounter = 0;
 		const tabCalendar = [];
 
 		for (let line = 0; line < 6; line++) {
 			const row = [];
 			for (let col = 0; col < 7; col++) {
-				if (dayCounter >= prevMonthDays && nextmMouthCounter == 0) {
+				if (dayCounter > prevMonthDays && nextmMouthCounter == 0) {
 					nextmMouthCounter = 1;
 					dayCounter = 1;
 				}
@@ -180,25 +234,56 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 				</table>
 				<div className={styles.button_container}>
 					<ActionButton
-						text="Save"
-						onClick={() => console.log('Valider')}
-						theme={2}
-						border={true}
+						text="Delete"
+						onClick={handleDeleteMenu}
+						theme={6}
 						width="130px"
 						height="50px"
-						font_size={22}
+						border={true}
+						font_size={26}
 					/>
+
 					<ActionButton
 						text="Deploy"
-						onClick={() => console.log('Valider')}
+						onClick={handleCreateMenu}
 						theme={5}
 						width="130px"
 						height="50px"
 						border={true}
-						font_size={22}
+						font_size={26}
 					/>
 				</div>
 			</div>
+			{isDeleteConfirmVisible && (
+				<div className={styles.confirmationPopup}>
+					<div className={styles.confirmationContent}>
+						<p>
+							Are you sure you want to delete the menu for date{' '}
+							{deleteDate}?
+						</p>
+						<div className={styles.button_container}>
+							<ActionButton
+								text="No"
+								onClick={hideDeleteConfirm}
+								theme={1}
+								width="130px"
+								height="50px"
+								border={true}
+								font_size={26}
+							/>
+							<ActionButton
+								text="Yes"
+								onClick={confirmDeleteMenu}
+								theme={5}
+								width="130px"
+								height="50px"
+								border={true}
+								font_size={26}
+							/>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

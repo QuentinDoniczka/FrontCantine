@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './slices/authSlice';
+import dateReducer from './slices/dateSlice';
 
 const persistConfig = {
 	key: 'root',
@@ -22,6 +23,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
 	reducer: {
 		auth: persistedReducer,
+		date: dateReducer,
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

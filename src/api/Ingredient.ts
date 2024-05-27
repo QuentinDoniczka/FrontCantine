@@ -1,5 +1,5 @@
 import axiosInstance from './axiosConfig';
-import { Ingredient } from '../types/Ingredient.types.tsx';
+import { Ingredient } from '../types/Ingredient.types.ts';
 
 export const getIngredients = async (): Promise<Ingredient[]> => {
 	try {

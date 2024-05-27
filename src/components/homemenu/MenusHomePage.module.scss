@@ -13,6 +13,9 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 50px;
+  .buttonClicked {
+  color: red;
+  }
 }
 .single_button {
   display: flex;
@@ -22,4 +25,6 @@
 .card{
   display: flex;
   justify-content: center;
+  height: 300px;
+  width: 250px;
 }

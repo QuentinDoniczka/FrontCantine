@@ -68,7 +68,10 @@
   }
   .button_container{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+
     margin-top: 20px;
     .button{
       border-radius: 5px;
@@ -81,5 +84,13 @@
         border: black solid 2px;
       }
     }
+  }
+  .confirmationPopup{
+    position: absolute;
+    width: 101%;
+    top:80%;
+    background-color: var(--secondary-color);
+    border-radius: 25px;
+    border: 2px solid;
   }
 }

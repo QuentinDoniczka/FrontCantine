@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import styles from './ProductForm.module.scss';
-import { Ingredient } from '../../types/Ingredient.types';
+import { Ingredient } from '../../types/Ingredient.types.ts';
 import { getIngredients } from '../../api/Ingredient';
 import { postProduct } from '../../api/product.ts';
 import { ProductData } from '../../types/Product.types.ts';
