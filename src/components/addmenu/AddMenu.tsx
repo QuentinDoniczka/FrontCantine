@@ -20,7 +20,7 @@ type AddMenuProps = {
 	product?: ProductData[];
 };
 
-const SEARCH_DELAY_MS = 1000;
+const SEARCH_DELAY_MS = 600;
 const MIN_SEARCH_LENGTH = 2;
 
 const AddMenu: React.FC<AddMenuProps> = ({

@@ -43,8 +43,7 @@
 }
 .button-theme-6 {
   background-color: #ff0707;
-  border:none;
-  color: black;
+  color: var(--secondary-color);
   &:hover {
     border: black solid 2px;
   }

@@ -10,9 +10,14 @@ import { MenuDto, MenuPost } from '../../types/Menu.types.ts';
 interface CalendarProps {
 	selectedDate: { day: number; month: number; year: number };
 	onDateChange: (date: { day: number; month: number; year: number }) => void;
+	manager?: boolean;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
+const Calendar: React.FC<CalendarProps> = ({
+	selectedDate,
+	onDateChange,
+	//manager = true, //TODO fix
+}) => {
 	const [month, setMonth] = useState(selectedDate.month - 1);
 	const [year, setYear] = useState(selectedDate.year);
 	const [selectedDay, setSelectedDay] = useState(selectedDate.day);
@@ -156,7 +161,6 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 				} else {
 					className = styles.not_in_month;
 				}
-
 				rowElements.push(
 					<td
 						key={`${row}-${col}`}
@@ -171,10 +175,8 @@ const Calendar: React.FC<CalendarProps> = ({ selectedDate, onDateChange }) => {
 					</td>
 				);
 			}
-
 			calendarNumbers.push(<tr key={row}>{rowElements}</tr>);
 		}
-
 		return calendarNumbers;
 	};
 	const generateTableCalendar = (month: number, year: number) => {
