@@ -136,6 +136,7 @@ const Register: React.FC<RegisterProps> = ({ onSwitchModal }) => {
 						font_size={18}
 						shadow={false}
 						type="submit"
+						onClick={() => {}}
 					/>
 				</div>
 				{successMessage && (

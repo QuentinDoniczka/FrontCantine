@@ -91,6 +91,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchModal, onClose }) => {
 						font_size={18}
 						shadow={false}
 						type="submit"
+						onClick={() => {}}
 					/>
 				</div>
 				{error && <p className={styles.errorText}>{error}</p>}

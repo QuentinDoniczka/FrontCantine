@@ -201,6 +201,7 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 					font_size={16}
 					shadow={false}
 					type="submit"
+					onClick={() => {}}
 				/>
 			</form>
 		</ReactModal>
