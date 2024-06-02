@@ -3,9 +3,10 @@ import Cookies from 'js-cookie';
 
 const getBaseURL = () => {
 	if (window.location.hostname === 'localhost') {
-		return 'https://localhost:7010/api';
-	} else {
 		return 'http://4.233.201.17:8080/api';
+		//return 'https://localhost:7010/api';
+	} else {
+		return 'https://localhost:7010/api';
 	}
 };
 
