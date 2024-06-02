@@ -21,17 +21,21 @@
 
 .card_text {
   font-size: 16px;
-  text-align: center; /* Centrer le texte dans la carte */
+  text-align: center;
 }
 
 .card_button {
-  margin-left: auto; /* Place le bouton à droite */
+  margin-left: auto;
 }
 
 .row {
   display: flex;
   align-items: center;
   width: 100%;
+  p{
+    margin: 0;
+    margin-left: 36px;
+  }
 }
 
 .card_prix {
@@ -44,20 +48,4 @@
   width: 100%;
   object-fit: cover;
   object-position: center;
-}
-
-@media (max-width: 1600px) {
-  .card {
-    background-color: red;
-    height: 270px;
-    min-width: 225px;
-    max-width: 225px;
-  }
-  .card_content {
-    height: 150px;
-    width: 210px;
-  }
-}
-p{
-  margin: 0px;
 }

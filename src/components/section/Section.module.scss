@@ -1,0 +1,30 @@
+.title {
+  z-index: 3;
+  position: relative;
+  height: 100px;
+  background-color: #F9812C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    font-size: 56px;
+    color: #FFC14F;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
+  }
+}
+.menu_container {
+  z-index: 2;
+  position: relative;
+  height: 340px;
+  background-color: #F5F5DC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //direct child of menu container
+  > div {
+    margin:20px;
+    padding: 10px;
+  }
+}

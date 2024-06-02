@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Menu.module.scss';
+import styles from './TypeMenu.module.scss';
 import AddMenu from '../addmenu/AddMenu.tsx';
 import { ProductData } from '../../types/Product.types.ts';
 type MenuProps = {
@@ -7,7 +7,7 @@ type MenuProps = {
 	products: ProductData[];
 };
 
-const Menu: React.FC<MenuProps> = ({ title, products }) => {
+const TypeMenu: React.FC<MenuProps> = ({ title, products }) => {
 	const [menuItems, setMenuItems] = useState([{ id: 0, state: 'button' }]);
 
 	const handleAddMenu = () => {
@@ -81,4 +81,4 @@ const Menu: React.FC<MenuProps> = ({ title, products }) => {
 	);
 };
 
-export default Menu;
+export default TypeMenu;

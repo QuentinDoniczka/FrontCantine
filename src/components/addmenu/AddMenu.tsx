@@ -253,17 +253,16 @@ const AddMenu: React.FC<AddMenuProps> = ({
 						src={selectedProduct.productImageUrl}
 						alt={selectedProduct.productName}
 					/>
-					<h3>{selectedProduct.productName}</h3>
 					<p>{selectedProduct.productDescription}</p>
 					<div className={styles.button_group_price}>
 						<p>{price} €</p>
-						<img
-							src={editIcon}
-							alt="Edit"
-							onClick={() => setState('form')}
-							className={styles.icon}
-						/>
 					</div>
+					<img
+						src={editIcon}
+						alt="Edit"
+						onClick={() => setState('form')}
+						className={styles.icon_edit}
+					/>
 				</div>
 			)}
 		</div>

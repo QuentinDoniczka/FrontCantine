@@ -11,12 +11,14 @@ interface CalendarProps {
 	selectedDate: { day: number; month: number; year: number };
 	onDateChange: (date: { day: number; month: number; year: number }) => void;
 	manager?: boolean;
+	calendarTop?: number;
 }
 
 const Calendar: React.FC<CalendarProps> = ({
 	selectedDate,
 	onDateChange,
-	//manager = true, //TODO fix
+	manager = true,
+	calendarTop = 0,
 }) => {
 	const [month, setMonth] = useState(selectedDate.month - 1);
 	const [year, setYear] = useState(selectedDate.year);
@@ -115,7 +117,7 @@ const Calendar: React.FC<CalendarProps> = ({
 					})),
 				};
 				const response = await createMenu(menuPost);
-				console.log('Menu created:', response);
+				console.log('TypeMenu created:', response);
 			} else {
 				console.log(
 					'No menu data found in Local Storage for the selected date.'
@@ -209,73 +211,52 @@ const Calendar: React.FC<CalendarProps> = ({
 	const calendarNumbers = generateCalendarNumbers(month, year);
 
 	return (
-		<div className={styles.background_calendar}>
-			<div className={styles.calendar}>
-				<div className={styles.calendar_head}>
-					<img
-						src={LeftArrow}
-						alt="Left Arrow"
-						className={styles.left_arrow}
-						onClick={handlePrevMonth}
-					/>
-					<p>{monthsOfYear[month]}</p>
-					<img
-						src={RightArrow}
-						alt="Right Arrow"
-						className={styles.left_arrow}
-						onClick={handleNextMonth}
-					/>
-				</div>
-				<div className={styles.date}>
-					<p>
-						{selectedDay}/{month + 1}/{year}
-					</p>
-				</div>
-				<table className={styles.table}>
-					<tbody>{calendarNumbers}</tbody>
-				</table>
-				<div className={styles.button_container}>
-					<ActionButton
-						text="Delete"
-						onClick={handleDeleteMenu}
-						theme={6}
-						width="130px"
-						height="50px"
-						border={true}
-						font_size={26}
-					/>
-
-					<ActionButton
-						text="Deploy"
-						onClick={handleCreateMenu}
-						theme={5}
-						width="130px"
-						height="50px"
-						border={true}
-						font_size={26}
-					/>
-				</div>
-			</div>
-			{isDeleteConfirmVisible && (
-				<div className={styles.confirmationPopup}>
-					<div className={styles.confirmationContent}>
+		<>
+			<div
+				className={`${styles.background_calendar} ${
+					!manager ? styles.background_calendar_menu : ''
+				}`}
+				style={{ top: `${calendarTop}px` }}
+			>
+				<div className={styles.calendar}>
+					<div className={styles.calendar_head}>
+						<img
+							src={LeftArrow}
+							alt="Left Arrow"
+							className={styles.left_arrow}
+							onClick={handlePrevMonth}
+						/>
+						<p>{monthsOfYear[month]}</p>
+						<img
+							src={RightArrow}
+							alt="Right Arrow"
+							className={styles.left_arrow}
+							onClick={handleNextMonth}
+						/>
+					</div>
+					<div className={styles.date}>
 						<p>
-							Are you sure you want to delete the menu for date{' '}
-							{deleteDate}?
+							{selectedDay}/{month + 1}/{year}
 						</p>
+					</div>
+					<table className={styles.table}>
+						<tbody>{calendarNumbers}</tbody>
+					</table>
+					{manager && (
 						<div className={styles.button_container}>
 							<ActionButton
-								text="No"
-								onClick={hideDeleteConfirm}
-								theme={1}
+								text="Delete"
+								onClick={handleDeleteMenu}
+								theme={6}
 								width="130px"
 								height="50px"
 								border={true}
 								font_size={26}
 							/>
+
 							<ActionButton
-								text="Yes"
-								onClick={confirmDeleteMenu}
+								text="Deploy"
+								onClick={handleCreateMenu}
 								theme={5}
 								width="130px"
 								height="50px"
@@ -283,10 +264,40 @@ const Calendar: React.FC<CalendarProps> = ({
 								font_size={26}
 							/>
 						</div>
-					</div>
+					)}
 				</div>
-			)}
-		</div>
+				{isDeleteConfirmVisible && (
+					<div className={styles.confirmationPopup}>
+						<div className={styles.confirmationContent}>
+							<p>
+								Are you sure you want to delete the menu for
+								date {deleteDate}?
+							</p>
+							<div className={styles.button_container}>
+								<ActionButton
+									text="No"
+									onClick={hideDeleteConfirm}
+									theme={1}
+									width="130px"
+									height="50px"
+									border={true}
+									font_size={26}
+								/>
+								<ActionButton
+									text="Yes"
+									onClick={confirmDeleteMenu}
+									theme={5}
+									width="130px"
+									height="50px"
+									border={true}
+									font_size={26}
+								/>
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
+		</>
 	);
 };
 

@@ -10,6 +10,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store, { persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Admin from './pages/admin/Admin.tsx';
+import Menu from './pages/menu/Menu.tsx';
+import Shopping from './pages/shopping/Shopping.tsx';
 
 const App: React.FC = () => {
 	return (
@@ -32,6 +35,20 @@ const App: React.FC = () => {
 								<Route
 									path="*"
 									element={<Navigate to="/" replace />}
+								/>
+								<Route
+									path="/shopping"
+									element={<Shopping />}
+								/>
+								<Route path="/menu" element={<Menu />} />
+
+								<Route
+									path="/manage"
+									element={
+										<Protected requiredRole="Admin">
+											<Admin />
+										</Protected>
+									}
 								/>
 							</Routes>
 						</main>

@@ -1,15 +1,15 @@
-import React from 'react';
 import styles from './AddButton.module.scss';
 interface AddButtonProps {
-    text: string;
+	text: string;
+	onClick: () => void;
 }
 
-const AddButton: React.FC<AddButtonProps> = ({ text }) => {
-    return (
-        <button className={styles.button}>
-            <span>{text}</span>
-        </button>
-    );
-}
+const AddButton = ({ text, onClick }: AddButtonProps) => {
+	return (
+		<button className={styles.button} onClick={onClick}>
+			<span>{text}</span>
+		</button>
+	);
+};
 
 export default AddButton;

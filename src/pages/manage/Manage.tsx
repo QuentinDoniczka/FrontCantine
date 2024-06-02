@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Manage.module.scss';
 import img from '../../assets/img/test.png';
-import Menu from '../../components/menu/Menu';
+import TypeMenu from '../../components/typemenu/TypeMenu.tsx';
 import ActionButton from '../../components/actionbutton/ActionButton';
 import ProductForm from '../../components/productform/ProductForm.tsx';
 import Calendar from '../../components/calendar/Calendar.tsx';
@@ -99,11 +99,12 @@ const Manage: React.FC = () => {
 			<Calendar
 				selectedDate={selectedDate}
 				onDateChange={handleDateChange}
+				calendarTop={100}
 			/>
-			<Menu title="starter" products={starterProducts} />
-			<Menu title="main" products={mainProducts} />
-			<Menu title="dessert" products={dessertProducts} />
-			<Menu title="drink" products={drinkProducts} />
+			<TypeMenu title="starter" products={starterProducts} />
+			<TypeMenu title="main" products={mainProducts} />
+			<TypeMenu title="dessert" products={dessertProducts} />
+			<TypeMenu title="drink" products={drinkProducts} />
 
 			<ProductForm isOpen={isModalOpen} onRequestClose={closeModal} />
 		</div>

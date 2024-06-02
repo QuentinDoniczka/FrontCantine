@@ -5,7 +5,7 @@ const getBaseURL = () => {
 	if (window.location.hostname === 'localhost') {
 		return 'https://localhost:7010/api';
 	} else {
-		return 'https://your-production-api.com/api';
+		return 'http://4.233.201.17:8080/api';
 	}
 };
 

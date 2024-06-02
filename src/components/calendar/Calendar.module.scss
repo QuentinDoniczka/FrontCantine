@@ -37,6 +37,9 @@
     height: 15%;
     position: relative;
     font-size: 24px;
+    p{
+      margin:0;
+    }
     img {
       width: 26px;
       height: 26px;
@@ -92,5 +95,13 @@
     background-color: var(--secondary-color);
     border-radius: 25px;
     border: 2px solid;
+  }
+}
+.background_calendar_menu{
+    border: none;
+  height: auto;
+  width: auto;
+  .calendar{
+    margin-top: 0;
   }
 }

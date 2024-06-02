@@ -1,0 +1,19 @@
+.payment{
+  z-index: 1005;
+  background-color: var(--primary-color);
+    border-radius: 25px;
+    border : 2px solid;
+  //shadow
+    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 300px;
+  height: 500px;
+  top: 100px;
+  left: 20px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.end{
+  margin-bottom: 10px;
+}

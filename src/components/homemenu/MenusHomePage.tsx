@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
 import { Menu } from '../../types/Menu.types.ts';
 import { ExtractedDataDto } from '../../types/Menu.types.ts';
+import { useNavigate } from 'react-router-dom';
 
 const MenusHomePage = () => {
 	const [startDate, setStartDate] = useState('');
@@ -16,6 +17,7 @@ const MenusHomePage = () => {
 		(state: RootState) => state.date.selectedDate
 	);
 	const [menusData, setMenusData] = useState<Menu[]>([]);
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (selectedDate) {
 			const currentDate = new Date(
@@ -35,16 +37,25 @@ const MenusHomePage = () => {
 		year: number;
 	}) => {
 		const currentDate = new Date(date.year, date.month - 1, date.day);
-		const dayOfWeek = currentDate.getDay();
-		const monday = new Date(currentDate),
-			friday = new Date(currentDate);
+		let dayOfWeek = currentDate.getDay();
+
+		if (dayOfWeek === 6 || dayOfWeek === 0) {
+			const daysToAdd = dayOfWeek === 6 ? 2 : 1;
+			currentDate.setDate(currentDate.getDate() + daysToAdd);
+			dayOfWeek = currentDate.getDay();
+		}
+		const monday = new Date(currentDate);
+		const friday = new Date(currentDate);
+
 		monday.setDate(
 			currentDate.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)
 		);
 		friday.setDate(monday.getDate() + 4);
+		console.log('Monday:', monday);
+		console.log('Friday:', friday);
 		return {
-			startDate: monday.toISOString().split('T')[0],
-			endDate: friday.toISOString().split('T')[0],
+			startDate: monday.toLocaleDateString('en-CA'), // Format 'YYYY-MM-DD'
+			endDate: friday.toLocaleDateString('en-CA'),
 		};
 	};
 	const handleButtonClick = (buttonName: string) => {
@@ -53,6 +64,8 @@ const MenusHomePage = () => {
 	useEffect(() => {
 		if (selectedDate) {
 			const { startDate, endDate } = calculateWeekRange(selectedDate);
+			console.log('Start date:', startDate);
+			console.log('End date:', endDate);
 			setStartDate(startDate);
 			setEndDate(endDate);
 		}
@@ -101,11 +114,14 @@ const MenusHomePage = () => {
 		},
 		{}
 	);
+	const handleClick = () => {
+		navigate('/menu');
+	};
 
 	return (
 		<>
 			<div className={styles.card_group}>
-				<div className={'col-6'}>
+				<div className={styles.container_card}>
 					<div className={styles.buttons}>
 						<ActionButton
 							text={'Monday'}
@@ -196,7 +212,7 @@ const MenusHomePage = () => {
 							width={'180px'}
 							font_size={22}
 							onClick={() => {
-								console.log('Monday clicked');
+								handleClick();
 							}}
 							border={true}
 						/>
