@@ -59,6 +59,9 @@ const ProductForm: React.FC<ModalProps> = ({ isOpen, onRequestClose }) => {
 		}
 
 		const productData: ProductData = {
+			menuProductId: '',
+			menuProductPrice: 0,
+			productImageUrl: '',
 			productName: formData.get('productName') as string,
 			productType: formData.get('productType') as string,
 			productDescription: formData.get('productDescription') as string,
