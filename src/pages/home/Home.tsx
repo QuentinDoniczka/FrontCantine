@@ -3,7 +3,7 @@ import styles from './Home.module.scss';
 import MenusHomePage from '../../components/homemenu/MenusHomePage.tsx';
 
 const Home = () => {
-	const bg_1_height = '60vh';
+	const bg_1_height = '80vh';
 	const bg_2_height = '20vh';
 	const bg_3_height = '10vh';
 	const total_height_num =

@@ -79,7 +79,7 @@ const Menu = () => {
 				selectedDate={selectedDate}
 				onDateChange={handleDateChange}
 				manager={false}
-				calendarTop={620}
+				calendarTop={420}
 			/>
 			<Payment />
 			<div className={styles.menu}>

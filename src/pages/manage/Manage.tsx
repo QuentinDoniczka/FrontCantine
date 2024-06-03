@@ -27,7 +27,7 @@ const Manage: React.FC = () => {
 			.toISOString()
 			.split('T')[0];
 		const storedMenu = localStorage.getItem(formattedDate);
-		localStorage.removeItem(formattedDate); // TODO FIX THIS
+		localStorage.removeItem(formattedDate);
 		if (storedMenu) {
 			const menuData = JSON.parse(storedMenu);
 			const products = menuData.menuProducts.map(

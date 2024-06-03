@@ -8,6 +8,8 @@ interface MenuQueryParams {
 
 export const getMenuByDateRange = async (params: MenuQueryParams) => {
 	try {
+		console.log(params.startDate);
+		console.log(params.endDate);
 		const response = await axiosInstance.get('/menu', { params });
 		return response.data;
 	} catch (error) {
