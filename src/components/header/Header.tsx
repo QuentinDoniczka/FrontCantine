@@ -81,7 +81,14 @@ const Header: React.FC = () => {
 					<img src={img} alt="logo" className={styles.logo} />
 				</div>
 				<div className={`${styles.headerpagesnav} col-3`}>
-					<a href="/home" className="navbar-link">
+					<a
+						href="/home"
+						className="navbar-link"
+						onClick={(event) => {
+							event.preventDefault();
+							navigate('/home');
+						}}
+					>
 						Home
 					</a>
 					{isLoggedIn && renderManageLink()}
