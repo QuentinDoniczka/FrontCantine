@@ -10,6 +10,7 @@ import { daysOfWeek, monthsOfYear } from '../../utils/constants.ts';
 import useAuth from '../../hooks/useAuth';
 import { roleHierarchy } from '../../utils/constants.ts';
 import Logout from '../logout/Logout.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,6 +19,7 @@ const Header: React.FC = () => {
 	);
 	const { userRole, isLoggedIn, userEmail } = useAuth();
 	const [currentDate, setCurrentDate] = useState<string>('');
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const today = new Date();
@@ -39,7 +41,14 @@ const Header: React.FC = () => {
 	const renderManageLink = () => {
 		if (userRole && roleHierarchy[userRole] >= roleHierarchy['Manager']) {
 			return (
-				<a href="/manage" className="navbar-link">
+				<a
+					href="/manage"
+					className="navbar-link"
+					onClick={(event) => {
+						event.preventDefault();
+						navigate('/manage');
+					}}
+				>
 					Manage
 				</a>
 			);
@@ -50,7 +59,14 @@ const Header: React.FC = () => {
 	const renderAdminLink = () => {
 		if (userRole && roleHierarchy[userRole] >= roleHierarchy['Admin']) {
 			return (
-				<a href="/admin" className="navbar-link">
+				<a
+					href="/admin"
+					className="navbar-link"
+					onClick={(event) => {
+						event.preventDefault();
+						navigate('/admin');
+					}}
+				>
 					Admin
 				</a>
 			);

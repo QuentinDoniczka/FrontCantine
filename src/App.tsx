@@ -43,7 +43,7 @@ const App: React.FC = () => {
 								<Route path="/menu" element={<Menu />} />
 
 								<Route
-									path="/manage"
+									path="/admin"
 									element={
 										<Protected requiredRole="Admin">
 											<Admin />
